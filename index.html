@@ -78,18 +78,6 @@
   <a href="more.html" class="button">Explore More →</a>
 </div>
         </div>
-        <details class="photo-credits">
-          <summary>Photo credits</summary>
-          <p>Photos are illustrative and displayed with cropping to fit the menu cards. Munchkins are illustrated with a photo of chocolate doughnut bites.</p>
-          <ul>
-            <li>Fries, sandwiches, and cookies: original menu photos from <a href="https://unsplash.com/license">Unsplash</a>.</li>
-            <li><a href="https://commons.wikimedia.org/wiki/File:BowlOfNachos.jpg">Nachos</a>: Daf-de / Wikimedia Commons — <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</li>
-            <li><a href="https://commons.wikimedia.org/wiki/File:Fruit_Juices_2.jpg">Flavored drinks</a>: IndayLiburan / Wikimedia Commons — <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</li>
-            <li><a href="https://commons.wikimedia.org/wiki/File:Little_Chocolate_Balls_of_Goodness.jpg">Munchkins</a>: Darren Tse / Wikimedia Commons — <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>.</li>
-            <li><a href="https://commons.wikimedia.org/wiki/File:Steamed_Siomai.jpg">Siomai</a>: ChristianCelestial / Wikimedia Commons — <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</li>
-            <li><a href="https://commons.wikimedia.org/wiki/File:ROSAM_Special_Fried_Siomai.jpg">Fried siomai</a>: ShmilyDigital / Wikimedia Commons — <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</li>
-          </ul>
-        </details>
       </div>
     </section>
     <section class="visit section" id="visit" aria-labelledby="visit-heading">
@@ -101,17 +89,19 @@
 
         </div>
       </div>
-      <section class="concern-section" id="concern">
-  <h2>message</h2>
-  <p>Have a concern or suggestion? Let us know!</p>
-
-  <form id="concernForm">
-    <textarea style="width: 500px; height: 100px;" placeholder="Write your concern here..." required></textarea>
-    <button style="width: 100px; height: 60px;" type="submit">Send Message here</button>
-    <p id="responseMessage"></p>
-  </form>
-
-</section>
+      <section class="wrap concern-section" id="concern" aria-labelledby="concern-heading">
+        <div class="concern-copy">
+          <span class="eyebrow">We’re listening</span>
+          <h2 id="concern-heading">Message us</h2>
+          <p id="concern-description">Have a question, concern, or suggestion? We’d love to hear from you.</p>
+        </div>
+        <form id="concernForm" class="concern-form" aria-labelledby="concern-heading">
+          <label for="concern-message">Your message</label>
+          <textarea id="concern-message" name="message" rows="5" placeholder="Tell us what’s on your mind…" aria-describedby="concern-description" required></textarea>
+          <button class="button" type="submit">Send message <span aria-hidden="true">↗</span></button>
+          <p id="responseMessage" class="concern-response" role="status" aria-live="polite"></p>
+        </form>
+      </section>
 
 <script>
 document.getElementById("concernForm").addEventListener("submit", function(e) {
