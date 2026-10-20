@@ -71,6 +71,12 @@
             <div class="food-image"><img src="assets/menu/fried-siomai.jpg" alt="Golden fried siomai dumplings" width="700" height="470" loading="lazy"><span class="food-tag">Crispy and savory</span></div>
             <div class="food-copy"><div class="food-title"><h3>Fried siomai</h3></div><p>A crispy twist on your favorite siomai, fried until golden.</p><span class="price-pending">Price to be announced</span></div>
           </article>
+          <div class="more-snacks">
+  <span class="more-icon" > <img src="assets/menu/plus.jpg"/> </span>
+  <h3>Want more snacks?</h3>
+  <p>Discover more delicious treats at SnackSpot.</p>
+  <a href="#menu" class="button">Explore More →</a>
+</div>
         </div>
         <details class="photo-credits">
           <summary>Photo credits</summary>
@@ -92,10 +98,33 @@
         <div class="visit-details">
           <article class="info-row"><span class="info-icon" aria-hidden="true">↗</span><div><h3>Pickup location</h3><p>SnackSpot stall, right outside the school.</p></div></article>
           <article class="info-row"><span class="info-icon" aria-hidden="true">♡</span><div><h3>Pickup only</h3><p>Collect and pay at the stall.</p><span class="fine">Plan your visit when you are permitted to leave campus.</span></div></article>
+
         </div>
       </div>
+      <section class="concern-section" id="concern">
+  <h2>message</h2>
+  <p>Have a concern or suggestion? Let us know!</p>
+
+  <form id="concernForm">
+    <textarea style="width: 500px; height: 100px;" placeholder="Write your concern here..." required></textarea>
+    <button style="width: 100px; height: 60px;" type="submit">Send Message here</button>
+    <p id="responseMessage"></p>
+  </form>
+
+</section>
+
+<script>
+document.getElementById("concernForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  document.getElementById("responseMessage").textContent =
+    "Thank you! Your concern has been received.";
+  this.reset();
+});
+</script>
     </section>
+
   </main>
-  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#home">SnackSpot<span class="brand-dot">.</span></a><span>Your day deserves a tasty break.</span><a href="#home">Back to top ↑</a></div><div class="wrap footer-bottom"><span>Pickup only · Pay at the stall</span><span>Affordable snacks. Happy students.</span></div></footer>
+  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#home">SnackSpot<span class="brand-dot">.</span></a><span>Your day deserves a tasty break.</span><a href="#home">Back to top ↑</a></div><div class="wrap footer-bottom"><span>Pickup only · Pay at the stall  </span><span>Affordable snacks. Happy students.</span></div></footer>
+ 
 </body>
 </html>
