@@ -15,6 +15,7 @@ foods = {
             {"label": "Large", "detail": "More to share", "price": 60},
         ],
         "flavors": ["Cheese", "BBQ", "Sour cream"],
+        "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80",
     },
     "drinks": {
         "name": "Flavored drinks",
@@ -27,6 +28,7 @@ foods = {
             {"label": "Large", "detail": "22 oz", "price": 40},
         ],
         "flavors": ["Lemonade", "Cucumber lemon", "Iced tea"],
+        "image": "assets/menu/flavored-drinks.jpg",
     },
     "munchkins": {
         "name": "Munchkins",
@@ -39,6 +41,116 @@ foods = {
             {"label": "10 pieces", "detail": "Sharing pack", "price": 50},
         ],
         "flavors": ["Choco glazed", "Choco butternut", "Powdered sugar"],
+        "image": "assets/menu/munchkins.jpg",
+    },
+    "sandwiches": {
+        "name": "Sandwiches",
+        "category": "Something filling",
+        "description": "Toasted sandwiches for study days and in-between-class cravings. Choose your filling and serving.",
+        "image": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=700&q=80",
+        "size_label": "Choose your serving",
+        "sizes": [
+            {"label": "Single", "detail": "1 sandwich", "price": 20},
+            {"label": "Double", "detail": "2 sandwiches", "price": 40},
+        ],
+        "flavors": ["Cheese", "Ham & cheese", "Chicken"],
+        "flavor_label": "Choose your filling",
+        "option_note": "All fillings are the same price for your selected serving.",
+    },
+    "cookies": {
+        "name": "Cookies",
+        "category": "A sweet little treat",
+        "description": "A little chocolate, a little crunch, and a well-deserved sweet break. Choose a piece or a pack.",
+        "image": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=700&q=80",
+        "size_label": "Choose your pack",
+        "sizes": [
+            {"label": "1 piece", "detail": "Solo treat", "price": 10},
+            {"label": "3 pieces", "detail": "Snack pack", "price": 30},
+        ],
+        "flavors": ["Chocolate chip", "Double chocolate"],
+    },
+    "nachos": {
+        "name": "Nachos",
+        "category": "Crunch time",
+        "description": "Crunchy tortilla chips with a cheesy topping. Pick a portion for a quick bite or a snack to share.",
+        "image": "assets/menu/nachos.jpg",
+        "size_label": "Choose your size",
+        "sizes": [
+            {"label": "Small", "detail": "Solo snack", "price": 25},
+            {"label": "Medium", "detail": "Bigger bite", "price": 35},
+            {"label": "Large", "detail": "Sharing portion", "price": 50},
+        ],
+        "flavors": ["Classic cheese", "BBQ cheese"],
+    },
+    "siomai": {
+        "name": "Siomai",
+        "category": "Steamed and savory",
+        "description": "Soft, savory steamed pork dumplings. Choose your pack and a dipping sauce for a satisfying snack break.",
+        "image": "assets/menu/siomai.jpg",
+        "size_label": "Choose your pack",
+        "sizes": [
+            {"label": "4 pieces", "detail": "Solo pack", "price": 20},
+            {"label": "8 pieces", "detail": "Sharing pack", "price": 40},
+        ],
+        "flavors": ["Soy calamansi", "Chili garlic"],
+        "flavor_label": "Choose your sauce",
+        "option_note": "Your choice of sauce is included in the pack price.",
+    },
+    "fried-siomai": {
+        "name": "Fried siomai",
+        "category": "Golden and crispy",
+        "description": "A crispy twist on pork siomai, fried until golden. Pick your pack and your favorite dipping sauce.",
+        "image": "assets/menu/fried-siomai.jpg",
+        "size_label": "Choose your pack",
+        "sizes": [
+            {"label": "4 pieces", "detail": "Solo pack", "price": 25},
+            {"label": "8 pieces", "detail": "Sharing pack", "price": 50},
+        ],
+        "flavors": ["Soy calamansi", "Chili garlic"],
+        "flavor_label": "Choose your sauce",
+        "option_note": "Your choice of sauce is included in the pack price.",
+    },
+    "custard-cake": {
+        "name": "Custard cake",
+        "category": "Soft and sweet",
+        "description": "Soft cake with a smooth custard layer. Enjoy a slice for yourself or pick two to share.",
+        "image": "assets/menu/cuscard-cake.jpg",
+        "size_label": "Choose your serving",
+        "sizes": [
+            {"label": "1 slice", "detail": "Solo treat", "price": 35},
+            {"label": "2 slices", "detail": "To share", "price": 70},
+        ],
+        "flavors": ["Classic custard"],
+        "flavor_label": "Cake flavor",
+        "option_note": "Classic custard is included in every slice.",
+    },
+    "custard": {
+        "name": "Custard tarts",
+        "category": "A creamy little bite",
+        "description": "Buttery pastry filled with smooth custard. Choose a single tart or a pair for your snack break.",
+        "image": "assets/menu/cuscard.jpg",
+        "size_label": "Choose your serving",
+        "sizes": [
+            {"label": "1 piece", "detail": "Solo treat", "price": 30},
+            {"label": "2 pieces", "detail": "To share", "price": 60},
+        ],
+        "flavors": ["Classic custard"],
+        "flavor_label": "Tart flavor",
+        "option_note": "Every tart comes with our classic custard filling.",
+    },
+    "pudding": {
+        "name": "Pudding",
+        "category": "A smooth sweet finish",
+        "description": "Smooth caramel pudding for a sweet finish to your snack break. Choose one serving or two.",
+        "image": "assets/menu/pudding.jpg",
+        "size_label": "Choose your serving",
+        "sizes": [
+            {"label": "Single", "detail": "1 serving", "price": 50},
+            {"label": "Double", "detail": "2 servings", "price": 100},
+        ],
+        "flavors": ["Caramel"],
+        "flavor_label": "Pudding flavor",
+        "option_note": "Caramel is included in every serving.",
     },
 }
 
@@ -170,17 +282,18 @@ def update_price():
 
 
 def show_food_information(food_button, food):
-    food_card = food_button.closest(".product-card")
-    card_picture = food_card.querySelector("img")
     popup_picture = document.getElementById("product-image")
-
-    popup_picture.src = card_picture.getAttribute("src")
-    popup_picture.alt = card_picture.alt
+    popup_picture.src = food["image"]
+    popup_picture.alt = food["name"]
 
     document.getElementById("product-title").textContent = food["name"]
     document.getElementById("product-category").textContent = food["category"]
     document.getElementById("product-description").textContent = food["description"]
     document.getElementById("product-size-label").textContent = food["size_label"]
+    document.getElementById("product-flavor-label").textContent = food.get("flavor_label", "Choose your flavor")
+    document.getElementById("product-option-note").textContent = food.get(
+        "option_note", "All flavors are the same price for your selected size."
+    )
 
 
 def press_is_outside_popup(event):
@@ -308,7 +421,10 @@ def load_cart():
         stored_items = json.loads(stored_text)
         if not isinstance(stored_items, list):
             return
-        if len(stored_items) > 27:
+        maximum_entries = 0
+        for food in foods.values():
+            maximum_entries = maximum_entries + len(food["sizes"]) * len(food["flavors"])
+        if len(stored_items) > maximum_entries:
             return
         for item in stored_items:
             if not isinstance(item, dict):
@@ -389,8 +505,7 @@ def render_cart(focus_key="", focus_action=""):
         row = document.createElement("li")
         row.className = "cart-item"
         picture = document.createElement("img")
-        card_picture = document.querySelector('[data-product="' + item["food"] + '"]').closest(".product-card").querySelector("img")
-        picture.src = card_picture.getAttribute("src")
+        picture.src = food["image"]
         picture.alt = ""
         row.appendChild(picture)
 

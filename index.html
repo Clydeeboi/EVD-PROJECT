@@ -16,7 +16,7 @@
   <header class="site-header">
     <nav class="wrap nav" aria-label="Main navigation">
       <a class="brand" href="#home" aria-label="SnackSpot home"><img src="assets/snackspot-logo.png" alt="" width="48" height="48">SnackSpot<span class="brand-dot">.</span></a>
-      <div class="nav-links"><div class="nav-hours"><span class="info-icon" aria-hidden="true">◷</span><div><span class="nav-hours-title">Opening hours</span><span class="nav-hours-time"><time datetime="09:00">9 AM</time> – <time datetime="20:00">8 PM</time></span></div></div><a href="#home" aria-current="page">Home</a><a href="#menu">Menu</a><a href="#concern">Contact</a><button class="button small cart-open" type="button" disabled aria-haspopup="dialog" aria-controls="cart-dialog">Cart <span class="cart-count" aria-label="0 items">0</span></button></div>
+      <div class="nav-links"><div class="nav-hours"><span class="info-icon" aria-hidden="true">◷</span><div><span class="nav-hours-title">Opening hours</span><span class="nav-hours-time"><time datetime="09:00">9 AM</time> – <time datetime="20:00">8 PM</time></span></div></div><a href="#home" aria-current="page">Home</a><a href="menu.html">Menu</a><a href="#concern">Contact</a><button class="button small cart-open" type="button" disabled aria-haspopup="dialog" aria-controls="cart-dialog">Cart <span class="cart-count" aria-label="0 items">0</span></button></div>
     </nav>
   </header>
   <main id="main">
@@ -60,9 +60,9 @@
           <div class="more-snacks">
             <div class="more-copy">
               <h3>Want more snacks?</h3>
-              <p>See our snack schedule and discover what's available each day.</p>
+              <p>Browse our full menu for more sweet and savory favorites.</p>
             </div>
-            <a href="more.html" class="button">View snack schedule <span aria-hidden="true">→</span></a>
+            <a href="menu.html" class="button">View full menu <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
@@ -110,10 +110,10 @@
           <div class="variant-grid" id="product-sizes"></div>
         </fieldset>
         <fieldset class="product-options">
-          <legend>Choose your flavor</legend>
+          <legend id="product-flavor-label">Choose your flavor</legend>
           <div class="variant-grid flavor-grid" id="product-flavors"></div>
         </fieldset>
-        <p class="product-option-note">All flavors are the same price for your selected size.</p>
+        <p class="product-option-note" id="product-option-note">All flavors are the same price for your selected size.</p>
         <div class="product-quantity-row"><label for="product-quantity">Quantity</label><input id="product-quantity" type="number" min="1" max="99" step="1" value="1" inputmode="numeric" required aria-describedby="product-feedback"></div>
         <div class="product-price-row"><span>Item total</span><output id="product-price" aria-live="polite"></output></div>
         <p class="product-selection" id="product-selection" aria-live="polite"></p>

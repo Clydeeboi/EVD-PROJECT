@@ -1,0 +1,17 @@
+.menu-page-heading { padding-top:40px; }
+.menu-page-heading h1 { margin:0; font-size:clamp(36px,4vw,48px); letter-spacing:-.035em; }
+.full-menu-section { padding-top:28px; }
+.menu-availability { flex-shrink:0; padding:8px 14px; border:1px solid var(--line); border-radius:99px; background:var(--pale); color:var(--orange); font-size:12px; font-weight:700; }
+.full-menu-grid .food-copy > p { margin-bottom:0; }
+.full-menu-grid .food-title { align-items:flex-start; }
+.full-menu-grid .food-title h3 { line-height:1.2; }
+.menu-help { margin-top:32px; }
+.variant-grid:has(> :only-child) { grid-template-columns:1fr; }
+.variant-grid:has(> :nth-child(2):last-child) { grid-template-columns:repeat(2,minmax(0,1fr)); }
+@media (min-width:761px) and (max-width:1050px) {
+  .full-menu-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:760px) {
+  .menu-page-heading { padding-top:28px; }
+  .menu-availability { align-self:flex-start; }
+}
