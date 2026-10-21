@@ -7,6 +7,8 @@
   <meta name="description" content="Affordable snacks, delicious choices, happy students. SnackSpot is your pickup-only snack stop right outside school.">
   <title>SnackSpot — Your break-time happy place</title>
   <link rel="icon" href="assets/snackspot-logo.png" type="image/png">
+  <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+  <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +16,7 @@
   <header class="site-header">
     <nav class="wrap nav" aria-label="Main navigation">
       <a class="brand" href="#home" aria-label="SnackSpot home"><img src="assets/snackspot-logo.png" alt="" width="48" height="48">SnackSpot<span class="brand-dot">.</span></a>
-      <div class="nav-links"><div class="nav-hours"><span class="info-icon" aria-hidden="true">◷</span><div><span class="nav-hours-title">Opening hours</span><span class="nav-hours-time"><time datetime="09:00">9 AM</time> – <time datetime="20:00">8 PM</time></span></div></div><a href="#home" aria-current="page">Home</a><a href="#menu">Featured snacks</a><a href="#visit">Visit us</a><a class="button small" href="#menu">Order Now <span aria-hidden="true">↗</span></a></div>
+      <div class="nav-links"><div class="nav-hours"><span class="info-icon" aria-hidden="true">◷</span><div><span class="nav-hours-title">Opening hours</span><span class="nav-hours-time"><time datetime="09:00">9 AM</time> – <time datetime="20:00">8 PM</time></span></div></div><a href="#home" aria-current="page">Home</a><a href="#menu">Menu</a><a href="#concern">Contact</a><a class="button small" href="#menu">Order Now <span aria-hidden="true">↗</span></a></div>
     </nav>
   </header>
   <main id="main">
@@ -37,46 +39,31 @@
     <div class="ribbon" aria-hidden="true"><div class="wrap ribbon-content">&nbsp;</div></div>
     <section id="menu" class="section" aria-labelledby="menu-heading">
       <div class="wrap">
-        <div class="section-head"><div><span class="eyebrow">A taste of SnackSpot</span><h2 id="menu-heading">Meet your break-time favorites.</h2><p>A little savory, a little sweet. Always worth a stop.</p></div><span class="section-note">Prices in PHP · Photos are illustrative</span></div>
+        <div class="section-head"><div><span class="eyebrow">A taste of SnackSpot</span><h2 id="menu-heading">Meet our best sellers.</h2><p>Fries, flavored drinks, and munchkins—your break-time favorites.</p></div></div>
+        <p id="menu-status" class="menu-status" role="status">Loading snack options…</p>
         <div class="menu-grid">
-          <article class="food-card">
+          <article class="food-card product-card">
             <div class="food-image"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Golden crispy fries" width="700" height="470" loading="lazy"><span class="food-tag">Break-time classic</span></div>
-            <div class="food-copy"><div class="food-title"><h3>Fries</h3><span class="price">₱20</span></div><p>Crispy bites with your choice of cheese, BBQ, or sour cream flavor.</p></div>
+            <div class="food-copy"><div class="food-title"><h3>Fries</h3><span class="price">₱20–₱60</span></div><p>Crispy bites with your choice of cheese, BBQ, or sour cream flavor.</p><span class="food-details-hint">Choose size &amp; flavor<span>→</span></span></div>
+            <button class="product-open" type="button" disabled data-product="fries" aria-label="Customize Fries" aria-haspopup="dialog" aria-controls="product-dialog"></button>
           </article>
-          <article class="food-card">
-            <div class="food-image"><img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="A toasted sandwich cut in half" width="700" height="470" loading="lazy"><span class="food-tag">Something filling</span></div>
-            <div class="food-copy"><div class="food-title"><h3>Sandwiches</h3><span class="price">₱20</span></div><p>A satisfying sandwich for study days and in-between-class cravings.</p></div>
-          </article>
-          <article class="food-card">
-            <div class="food-image"><img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Chocolate chip cookies" width="700" height="470" loading="lazy"><span class="food-tag">A sweet little treat</span></div>
-            <div class="food-copy"><div class="food-title"><h3>Cookies</h3><span class="price">₱10</span></div><p>A little chocolate, a little crunch, and a well-deserved sweet break.</p></div>
-          </article>
-          <article class="food-card">
-            <div class="food-image"><img src="assets/menu/nachos.jpg" alt="A bowl of nachos with melted cheese and toppings" width="700" height="470" loading="lazy"><span class="food-tag">Crunch time</span></div>
-            <div class="food-copy"><div class="food-title"><h3>Nachos</h3></div><p>Crunchy tortilla chips for a tasty break between classes.</p><span class="price-pending">Price to be announced</span></div>
-          </article>
-          <article class="food-card">
+          <article class="food-card product-card">
             <div class="food-image"><img src="assets/menu/flavored-drinks.jpg" alt="Colorful flavored drinks in dispensers at a food stall" width="700" height="470" loading="lazy"><span class="food-tag">Sip and refresh</span></div>
-            <div class="food-copy"><div class="food-title"><h3>Flavored drinks</h3></div><p>A refreshing drink to pair with your favorite savory or sweet snack.</p><span class="price-pending">Price to be announced</span></div>
+            <div class="food-copy"><div class="food-title"><h3>Flavored drinks</h3><span class="price">₱20–₱40</span></div><p>A refreshing drink to pair with your favorite savory or sweet snack.</p><span class="food-details-hint">Choose cup &amp; flavor<span>→</span></span></div>
+            <button class="product-open" type="button" disabled data-product="drinks" aria-label="Customize Flavored drinks" aria-haspopup="dialog" aria-controls="product-dialog"></button>
           </article>
-          <article class="food-card">
+          <article class="food-card product-card">
             <div class="food-image"><img src="assets/menu/munchkins.jpg" alt="Chocolate-glazed bite-size doughnut balls" width="700" height="470" loading="lazy"><span class="food-tag">Bite-size sweetness</span></div>
-            <div class="food-copy"><div class="food-title"><h3>Munchkins</h3></div><p>Little doughnut bites for a sweet snack on the go.</p><span class="price-pending">Price to be announced</span></div>
-          </article>
-          <article class="food-card">
-            <div class="food-image"><img src="assets/menu/siomai.jpg" alt="Steamed siomai with calamansi and dipping sauce" width="700" height="470" loading="lazy"><span class="food-tag">Steamed favorite</span></div>
-            <div class="food-copy"><div class="food-title"><h3>Siomai</h3></div><p>Soft, savory steamed dumplings for a satisfying snack break.</p><span class="price-pending">Price to be announced</span></div>
-          </article>
-          <article class="food-card">
-            <div class="food-image"><img src="assets/menu/fried-siomai.jpg" alt="Golden fried siomai dumplings" width="700" height="470" loading="lazy"><span class="food-tag">Crispy and savory</span></div>
-            <div class="food-copy"><div class="food-title"><h3>Fried siomai</h3></div><p>A crispy twist on your favorite siomai, fried until golden.</p><span class="price-pending">Price to be announced</span></div>
+            <div class="food-copy"><div class="food-title"><h3>Munchkins</h3><span class="price">₱15–₱50</span></div><p>Little doughnut bites for a sweet snack on the go.</p><span class="food-details-hint">Choose pack &amp; flavor<span>→</span></span></div>
+            <button class="product-open" type="button" disabled data-product="munchkins" aria-label="Customize Munchkins" aria-haspopup="dialog" aria-controls="product-dialog"></button>
           </article>
           <div class="more-snacks">
-  <span class="more-icon" style="font-size: 24px;"> + </span>
-  <h3>Want more snacks? this is..</h3>
-  <p>our available food sched.</p>
-  <a href="more.html" class="button">Explore More →</a>
-</div>
+            <div class="more-copy">
+              <h3>Want more snacks?</h3>
+              <p>See our snack schedule and discover what's available each day.</p>
+            </div>
+            <a href="more.html" class="button">View snack schedule <span aria-hidden="true">→</span></a>
+          </div>
         </div>
       </div>
     </section>
@@ -92,29 +79,47 @@
       <section class="wrap concern-section" id="concern" aria-labelledby="concern-heading">
         <div class="concern-copy">
           <span class="eyebrow">We’re listening</span>
-          <h2 id="concern-heading">Message us</h2>
+          <h2 id="concern-heading">Contact us</h2>
           <p id="concern-description">Have a question, concern, or suggestion? We’d love to hear from you.</p>
         </div>
         <form id="concernForm" class="concern-form" aria-labelledby="concern-heading">
           <label for="concern-message">Your message</label>
           <textarea id="concern-message" name="message" rows="5" placeholder="Tell us what’s on your mind…" aria-describedby="concern-description" required></textarea>
-          <button class="button" type="submit">Send message <span aria-hidden="true">↗</span></button>
+          <button class="button" type="submit" disabled>Send message <span aria-hidden="true">↗</span></button>
           <p id="responseMessage" class="concern-response" role="status" aria-live="polite"></p>
         </form>
       </section>
-
-<script>
-document.getElementById("concernForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  document.getElementById("responseMessage").textContent =
-    "Thank you! Your concern has been received.";
-  this.reset();
-});
-</script>
     </section>
 
   </main>
   <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#home">SnackSpot<span class="brand-dot">.</span></a><span>Your day deserves a tasty break.</span><a href="#home">Back to top ↑</a></div><div class="wrap footer-bottom"><span>Pickup only · Pay at the stall  </span><span>Affordable snacks. Happy students.</span></div></footer>
  
+  <dialog class="product-dialog" id="product-dialog" aria-labelledby="product-title" aria-describedby="product-description">
+    <button class="product-close" id="product-close" type="button" aria-label="Close food details">×</button>
+    <div class="product-dialog-layout">
+      <div class="product-dialog-visual">
+        <img id="product-image" alt="">
+        <span>Pay at the stall</span>
+      </div>
+      <div class="product-dialog-content">
+        <span class="eyebrow" id="product-category"></span>
+        <h2 id="product-title"></h2>
+        <p class="product-description" id="product-description"></p>
+        <fieldset class="product-options">
+          <legend id="product-size-label">Choose your size</legend>
+          <div class="variant-grid" id="product-sizes"></div>
+        </fieldset>
+        <fieldset class="product-options">
+          <legend>Choose your flavor</legend>
+          <div class="variant-grid flavor-grid" id="product-flavors"></div>
+        </fieldset>
+        <p class="product-option-note">All flavors are the same price for your selected size.</p>
+        <div class="product-price-row"><span>Price per serving</span><output id="product-price" aria-live="polite"></output></div>
+        <p class="product-selection" id="product-selection" aria-live="polite"></p>
+        <button class="button product-done" id="product-done" type="button">Back to menu</button>
+      </div>
+    </div>
+  </dialog>
+  <script type="py" src="main.py"></script>
 </body>
 </html>
