@@ -568,31 +568,33 @@ if not ffi.is_none(cart_popup):
     load_cart()
     render_cart()
 
-    @when("click", "#product-add")
-    def add_food_to_cart(event):
-        quantity = read_product_quantity()
-        if quantity == 0:
-            document.getElementById("product-quantity").reportValidity()
-            return
-        choice = saved_choices[current_food]
-        new_item = {"food": current_food, "size": choice["size"],
-                    "flavor": choice["flavor"], "quantity": quantity}
-        matching_item = None
-        for item in cart:
-            if cart_item_key(item) == cart_item_key(new_item):
-                matching_item = item
-        if matching_item is not None:
-            if matching_item["quantity"] + quantity > 99:
-                document.getElementById("product-feedback").textContent = "You can add up to 99 of the same size and flavor. Adjust the quantity in your cart."
+    if not ffi.is_none(popup):
+
+        @when("click", "#product-add")
+        def add_food_to_cart(event):
+            quantity = read_product_quantity()
+            if quantity == 0:
+                document.getElementById("product-quantity").reportValidity()
                 return
-            matching_item["quantity"] = matching_item["quantity"] + quantity
-        else:
-            cart.append(new_item)
-        save_cart()
-        render_cart()
-        document.getElementById("cart-notice").hidden = False
-        document.getElementById("cart-notice-message").textContent = str(quantity) + " × " + foods[current_food]["name"] + " added to your cart."
-        popup.close()
+            choice = saved_choices[current_food]
+            new_item = {"food": current_food, "size": choice["size"],
+                        "flavor": choice["flavor"], "quantity": quantity}
+            matching_item = None
+            for item in cart:
+                if cart_item_key(item) == cart_item_key(new_item):
+                    matching_item = item
+            if matching_item is not None:
+                if matching_item["quantity"] + quantity > 99:
+                    document.getElementById("product-feedback").textContent = "You can add up to 99 of the same size and flavor. Adjust the quantity in your cart."
+                    return
+                matching_item["quantity"] = matching_item["quantity"] + quantity
+            else:
+                cart.append(new_item)
+            save_cart()
+            render_cart()
+            document.getElementById("cart-notice").hidden = False
+            document.getElementById("cart-notice-message").textContent = str(quantity) + " × " + foods[current_food]["name"] + " added to your cart."
+            popup.close()
 
     @when("click", ".cart-open")
     def open_cart(event):
@@ -604,10 +606,13 @@ if not ffi.is_none(cart_popup):
         document.body.classList.add("product-dialog-open")
         document.getElementById("cart-close").focus(ffi.to_js({"preventScroll": True}))
 
-    @when("click", "#notice-dismiss")
-    def dismiss_cart_notice(event):
-        document.getElementById("cart-notice").hidden = True
-        document.querySelector(".cart-open").focus(ffi.to_js({"preventScroll": True}))
+    notice_button = document.getElementById("notice-dismiss")
+    if not ffi.is_none(notice_button):
+
+        @when("click", "#notice-dismiss")
+        def dismiss_cart_notice(event):
+            document.getElementById("cart-notice").hidden = True
+            document.querySelector(".cart-open").focus(ffi.to_js({"preventScroll": True}))
 
     @when("click", "#cart-close, #cart-continue")
     def close_cart(event):
@@ -641,7 +646,9 @@ if not ffi.is_none(cart_popup):
         save_cart()
         render_cart(key, action)
         document.getElementById("cart-update").textContent = message
-        document.getElementById("cart-notice").hidden = True
+        cart_notice = document.getElementById("cart-notice")
+        if not ffi.is_none(cart_notice):
+            cart_notice.hidden = True
 
     @when("keydown", "#cart-dialog")
     def keep_keyboard_inside_cart(event):
@@ -758,9 +765,10 @@ def finish_loading():
         send_button = contact_form.querySelector('button[type="submit"]')
         send_button.disabled = False
 
-    loading_message = document.getElementById("menu-status")
-    if not ffi.is_none(loading_message):
-        loading_message.hidden = True
+    for message_id in ["menu-status", "contact-status"]:
+        loading_message = document.getElementById(message_id)
+        if not ffi.is_none(loading_message):
+            loading_message.hidden = True
 
     document.documentElement.dataset.snackspotReady = "true"
 
