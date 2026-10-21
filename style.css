@@ -26,6 +26,16 @@ p { margin-top:0; }
 .brand { display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-size:22px; font-weight:800; letter-spacing:-.8px; white-space:nowrap; }
 .brand img { width:48px; height:48px; object-fit:contain; }
 .brand-dot { color:var(--orange); margin-left:-8px; }
+
+.site-header .brand { position:relative; transition:color .25s ease; }
+.site-header .brand::after { content:""; position:absolute; left:0; right:0; bottom:-5px; height:2px; border-radius:2px; background:var(--orange); transform:scaleX(0); transform-origin:left; transition:transform .3s ease; }
+.site-header .brand:is(:hover,:focus-visible) { color:var(--orange); }
+.site-header .brand:is(:hover,:focus-visible)::after { transform:scaleX(1); }
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .site-header .brand img { transition:transform .35s cubic-bezier(.34,1.56,.64,1); }
+  .site-header .brand:is(:hover,:focus-visible) img { transform:translateY(-2px) rotate(-9deg); }
+}
+
 .nav-links { display:flex; align-items:center; gap:14px; font-size:14px; }
 .nav-hours { display:flex; align-items:center; gap:10px; margin-right:8px; white-space:nowrap; }
 .nav-hours .info-icon { flex-basis:36px; width:36px; height:36px; font-size:22px; }
