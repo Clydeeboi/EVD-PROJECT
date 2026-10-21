@@ -979,22 +979,37 @@ contact_form = document.getElementById("concernForm")
 
 if not ffi.is_none(contact_form):
 
+    @when("input", "#concernForm")
+    def clear_contact_feedback(event):
+        if event.target.matches("input, textarea"):
+            event.target.setCustomValidity("")
+            document.getElementById("responseMessage").textContent = ""
+
     @when("submit", "#concernForm")
     def check_contact_message(event):
         event.preventDefault()
-
-        message_box = document.getElementById("concern-message")
         response_label = document.getElementById("responseMessage")
-        message = message_box.value.strip()
+        required_fields = (
+            ("concern-name", "Please enter your full name."),
+            ("concern-email", "Please enter your email address."),
+            ("concern-subject", "Please enter a subject."),
+            ("concern-message", "Please enter your message."),
+        )
 
-        if message == "":
-            response_label.textContent = "Please enter a message before submitting."
-            message_box.focus()
-        else:
-            response_label.textContent = (
-                "Your message has been checked. It has not been sent."
-            )
-            contact_form.reset()
+        for field_id, error_message in required_fields:
+            field = document.getElementById(field_id)
+            field.value = field.value.strip()
+            field.setCustomValidity("" if field.value else error_message)
+
+        if not contact_form.checkValidity():
+            response_label.textContent = "Please check the highlighted fields."
+            contact_form.reportValidity()
+            return
+
+        response_label.textContent = (
+            "Your details look good. This is a preview, so your message has not "
+            "been sent. Your text is still here for you to edit or copy."
+        )
 
 
 scroll_selector = (

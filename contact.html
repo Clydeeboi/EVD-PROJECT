@@ -16,22 +16,54 @@
   <header class="site-header">
     <nav class="wrap nav" aria-label="Main navigation">
       <a class="brand" href="index.html#home" aria-label="SnackSpot home"><img src="assets/snackspot-logo.png" alt="" width="48" height="48">SnackSpot<span class="brand-dot">.</span></a>
-      <div class="nav-links"><div class="nav-hours"><span class="info-icon" aria-hidden="true">◷</span><div><span class="nav-hours-title">Opening hours</span><span class="nav-hours-time"><time datetime="09:00">9 AM</time> – <time datetime="20:00">8 PM</time></span></div></div><a href="index.html#home">Home</a><a href="menu.html">Menu</a><a href="contact.html" aria-current="page">Contact</a><button class="button small cart-open" type="button" disabled aria-haspopup="dialog" aria-controls="cart-dialog">Cart <span class="cart-count" aria-label="0 items">0</span></button></div>
+      <div class="nav-links"><div class="nav-hours"><span class="info-icon" aria-hidden="true">◷</span><div><span class="nav-hours-title">Opening hours</span><span class="nav-hours-time"><time datetime="09:00">9 AM</time> – <time datetime="20:00">8 PM</time></span></div></div><a href="index.html#home">Home</a><a href="menu.html">Menu</a><a href="contact.html" aria-current="page">Contact Us</a><button class="button small cart-open" type="button" disabled aria-haspopup="dialog" aria-controls="cart-dialog">Cart <span class="cart-count" aria-label="0 items">0</span></button></div>
     </nav>
   </header>
   <main id="main" class="contact-page">
       <section class="wrap concern-section" id="concern" aria-labelledby="concern-heading">
         <div class="concern-copy">
-          <span class="eyebrow">We’re listening</span>
-          <h1 id="concern-heading">Contact us</h1>
-          <p id="concern-description">Have a question, concern, or suggestion? We’d love to hear from you.</p>
+          <span class="eyebrow pill">We’re listening</span>
+          <h1 id="concern-heading">Contact Us</h1>
+          <p id="concern-description">Questions about your favorite snacks? A little feedback to share? We’d love to hear from you.</p>
+          <dl class="contact-details">
+            <div><dt>Visit our stall</dt><dd>SnackSpot, right outside school.</dd></div>
+            <div><dt>Opening hours</dt><dd>9 AM – 8 PM</dd></div>
+            <div><dt>About an order?</dt><dd>Include your order reference, if you have one, so we can understand your question.</dd></div>
+          </dl>
+          <a class="text-link" href="menu.html">Explore our menu <span aria-hidden="true">→</span></a>
         </div>
-        <form id="concernForm" class="concern-form" aria-labelledby="concern-heading">
-          <label for="concern-message">Your message</label>
-          <textarea id="concern-message" name="message" rows="5" placeholder="Tell us what’s on your mind…" aria-describedby="concern-description" required></textarea>
+        <form id="concernForm" class="concern-form" aria-labelledby="contact-form-heading" aria-describedby="contact-form-help contact-preview-note">
+          <div class="contact-form-intro">
+            <h2 id="contact-form-heading">Leave us a message</h2>
+            <p id="contact-form-help">Fields marked <span aria-hidden="true">*</span><span class="contact-required-word">with an asterisk</span> are required.</p>
+          </div>
+          <div class="contact-field-grid">
+            <div class="contact-field">
+              <label for="concern-name">Full name <span class="contact-required" aria-hidden="true">*</span></label>
+              <input id="concern-name" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Your full name" required>
+            </div>
+            <div class="contact-field">
+              <label for="concern-email">Email address <span class="contact-required" aria-hidden="true">*</span></label>
+              <input id="concern-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" aria-describedby="contact-email-help" required>
+              <p class="contact-field-hint" id="contact-email-help">The address where you’d like a reply.</p>
+            </div>
+          </div>
+          <div class="contact-field">
+            <label for="concern-phone">Phone number <span class="contact-optional">(optional)</span></label>
+            <input id="concern-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" placeholder="Your contact number">
+          </div>
+          <div class="contact-field">
+            <label for="concern-subject">Subject <span class="contact-required" aria-hidden="true">*</span></label>
+            <input id="concern-subject" name="subject" type="text" maxlength="120" placeholder="What can we help you with?" required>
+          </div>
+          <div class="contact-field">
+            <label for="concern-message">Your message <span class="contact-required" aria-hidden="true">*</span></label>
+            <textarea id="concern-message" name="message" rows="6" maxlength="3000" placeholder="Tell us a little more about your question or feedback…" required></textarea>
+          </div>
+          <p id="contact-preview-note" class="contact-preview-note">Form preview: you can check your details here. Messages are not sent yet.</p>
           <p id="contact-status" class="contact-loading" role="status">Loading contact form…</p>
-          <button class="button" type="submit" disabled>Send message <span aria-hidden="true">↗</span></button>
-          <p id="responseMessage" class="concern-response" role="status" aria-live="polite"></p>
+          <button class="button" type="submit" disabled>Check message <span aria-hidden="true">↗</span></button>
+          <p id="responseMessage" class="concern-response" role="status" aria-live="polite" aria-atomic="true"></p>
         </form>
       </section>
   </main>
