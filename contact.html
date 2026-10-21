@@ -35,7 +35,7 @@
         </form>
       </section>
   </main>
-  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="index.html#home">SnackSpot<span class="brand-dot">.</span></a><span>Your day deserves a tasty break.</span><a href="#top">Back to top ↑</a></div><div class="wrap footer-bottom"><span>Pickup only · Pay at the stall  </span><span>Affordable snacks. Happy students.</span></div></footer>
+  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="index.html#home">SnackSpot<span class="brand-dot">.</span></a><span>Your day deserves a tasty break.</span><a href="#top">Back to top ↑</a></div><div class="wrap footer-bottom"><span>Pickup only · GCash  </span><span>Affordable snacks. Happy students.</span></div></footer>
   <dialog class="product-dialog cart-dialog" id="cart-dialog" aria-labelledby="cart-title" aria-describedby="cart-description">
     <button class="product-close" id="cart-close" type="button" aria-label="Close cart">×</button>
     <div class="cart-content">
@@ -49,11 +49,69 @@
       </div>
       <ul class="cart-items" id="cart-items" aria-label="Snacks in your cart"></ul>
       <div class="cart-total-row"><span>Total <small id="cart-item-count">0 items</small></span><output id="cart-total">₱0</output></div>
-      <p class="cart-note" id="cart-note-storage">This demo saves your cart on this browser. It does not send an order to the stall or take payment.</p>
+      <p class="cart-note" id="cart-note-storage">Your cart is saved in this browser.</p>
       <p id="cart-update" class="cart-update" role="status" aria-live="polite"></p>
-      <button class="button cart-continue" id="cart-continue" type="button">Continue browsing <span aria-hidden="true">→</span></button>
+      <div class="cart-actions"><button class="button button-secondary cart-continue" id="cart-continue" type="button">Keep browsing</button><button class="button cart-checkout" id="cart-checkout" type="button" disabled aria-haspopup="dialog" aria-controls="checkout-dialog">Checkout <span aria-hidden="true">→</span></button></div>
     </div>
   </dialog>
+  <dialog class="product-dialog checkout-dialog" id="checkout-dialog" aria-labelledby="checkout-title">
+    <button class="product-close" id="checkout-close" type="button" aria-label="Close checkout">×</button>
+    <div class="checkout-content">
+      <span class="eyebrow">One step closer to snack time</span>
+      <h2 id="checkout-title">Checkout</h2>
+      <div id="checkout-entry">
+        <p class="checkout-intro">Check your snacks and add your pickup details.</p>
+        <form id="checkout-form">
+          <div class="checkout-layout">
+            <section class="checkout-fields" aria-labelledby="checkout-details-heading">
+              <h3 id="checkout-details-heading">Your details</h3>
+              <label for="checkout-name">Name for pickup <span aria-hidden="true">*</span></label>
+              <input id="checkout-name" name="customer_name" type="text" autocomplete="name" maxlength="80" placeholder="Your name" required>
+              <label for="checkout-phone">Mobile number <span aria-hidden="true">*</span></label>
+              <input id="checkout-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="13" pattern="(09[0-9]{9}|[+]639[0-9]{9})" title="Use 09XXXXXXXXX or +639XXXXXXXXX." placeholder="09XXXXXXXXX" aria-describedby="checkout-phone-help checkout-phone-error" required>
+              <p class="checkout-field-hint" id="checkout-phone-help">Use 09XXXXXXXXX or +639XXXXXXXXX.</p>
+              <p class="checkout-field-error" id="checkout-phone-error" role="alert"></p>
+              <label for="checkout-notes">Order notes <span class="checkout-optional">(optional)</span></label>
+              <textarea id="checkout-notes" name="notes" rows="3" maxlength="300" placeholder="Anything we should know?"></textarea>
+              <div class="checkout-pickup"><strong>Pickup at SnackSpot</strong><span>Right outside school · 9 AM – 8 PM</span><span id="checkout-pickup-payment">Payment: GCash</span></div>
+            </section>
+            <section class="checkout-summary" aria-labelledby="checkout-summary-heading">
+              <div class="checkout-summary-heading"><h3 id="checkout-summary-heading">Order summary</h3><span id="checkout-count"></span></div>
+              <ul class="checkout-lines" id="checkout-items" aria-label="Your order"></ul>
+              <div class="checkout-total-row"><span>Total</span><output id="checkout-total">₱0</output></div>
+              <p class="checkout-payment-note" id="checkout-payment-note">GCash · Complete the showcase payment below</p>
+              <div class="checkout-payment-method"><strong>Payment method</strong><span>GCash only</span></div>
+              <div class="gcash-payment" id="gcash-payment" aria-labelledby="gcash-payment-title">
+                <div class="gcash-heading"><span class="gcash-icon" aria-hidden="true">G</span><div><strong id="gcash-payment-title">GCash</strong><span>Payment preview</span></div></div>
+                <div class="gcash-amount-row"><span>Amount to pay</span><output id="gcash-amount">₱0</output></div>
+                <p class="gcash-merchant">Merchant: <strong>SnackSpot</strong></p>
+                <button class="button gcash-simulate" id="gcash-simulate" type="button">Simulate payment <span aria-hidden="true">→</span></button>
+                <p class="gcash-showcase-note">Showcase payment. No money is transferred.</p>
+                <p id="gcash-status" class="gcash-status" role="status" aria-live="polite"></p>
+                <p class="gcash-reference" id="gcash-reference-row" hidden>Showcase reference: <strong id="gcash-reference"></strong></p>
+              </div>
+            </section>
+          </div>
+          <p id="checkout-feedback" class="checkout-feedback" role="status" aria-live="polite"></p>
+          <div class="checkout-actions"><button class="button button-secondary" id="checkout-back" type="button">← Back to cart</button><button class="button" id="checkout-submit" type="submit" disabled>Place order <span aria-hidden="true">→</span></button></div>
+        </form>
+      </div>
+      <section class="checkout-success" id="checkout-success" aria-labelledby="checkout-success-title" hidden>
+        <span class="checkout-success-mark" aria-hidden="true">✓</span>
+        <h3 id="checkout-success-title" tabindex="-1">Order created!</h3>
+        <p class="checkout-intro">Here’s your order summary. The stall has not received an order.</p>
+        <div class="checkout-receipt">
+          <div class="checkout-receipt-heading"><strong id="receipt-number"></strong><span class="checkout-payment-status" id="receipt-payment-status">Awaiting payment</span></div>
+          <p class="receipt-date" id="receipt-date"></p>
+          <dl class="receipt-details"><div><dt>Name</dt><dd id="receipt-name"></dd></div><div id="receipt-phone-row" hidden><dt>Mobile</dt><dd id="receipt-phone"></dd></div><div><dt>Pickup</dt><dd>SnackSpot stall, right outside school</dd></div><div><dt>Payment</dt><dd id="receipt-payment">GCash</dd></div><div id="receipt-payment-reference-row" hidden><dt>Reference</dt><dd id="receipt-payment-reference"></dd></div><div id="receipt-notes-row" hidden><dt>Notes</dt><dd id="receipt-notes"></dd></div></dl>
+          <ul class="checkout-lines" id="receipt-items" aria-label="Order items"></ul>
+          <div class="checkout-total-row"><span>Total</span><output id="receipt-total">₱0</output></div>
+        </div>
+        <button class="button checkout-done" id="checkout-done" type="button">Continue browsing <span aria-hidden="true">→</span></button>
+      </section>
+    </div>
+  </dialog>
+
   <script type="py" src="main.py"></script>
 </body>
 </html>

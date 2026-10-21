@@ -11,7 +11,7 @@
   <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="home-page">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <nav class="wrap nav" aria-label="Main navigation">
@@ -47,18 +47,20 @@
         <div class="hero-copy">
           <span class="eyebrow pill">Your break-time happy place</span>
           <h1 id="hero-heading">Big snack energy.<br>Small-budget vibes.</h1>
-          <p>Affordable snacks. Delicious choices. Happy students.</p>
-          <p>Make your break the best part of the day. Your next favorite snack is waiting right outside school.</p>
+          <p>Affordable favorites, right outside school.</p>
           <div class="actions"><a class="button" href="#menu">Check our best sellers <span aria-hidden="true">↓</span></a><a class="text-link" href="#visit">Find our stall →</a></div>
-          <div class="hero-details"><span>Student-friendly prices</span><span>Pickup only</span><span>Pay at the stall</span></div>
+          <div class="hero-details"><span>Student-friendly prices</span><span>Pickup only</span><span>GCash payment</span></div>
         </div>
         <figure class="hero-image">
-          <img src="assets/snackspot-spread.png" alt="A colorful spread of sweet and savory snacks" width="3024" height="4032" fetchpriority="high">
-          <figcaption><span class="caption-star" aria-hidden="true">✦</span><span>A little break.<br><strong>A lot to love.</strong></span></figcaption>
+          <div class="hero-collage">
+            <img class="hero-collage-fries" src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Golden fries with a savory seasoning" width="700" height="470" fetchpriority="high">
+            <img class="hero-collage-drinks" src="assets/menu/flavored-drinks.jpg" alt="Refreshing flavored drinks" width="700" height="470">
+            <img class="hero-collage-munchkins" src="assets/menu/munchkins.jpg" alt="Chocolate-glazed munchkins" width="700" height="470">
+          </div>
+          <figcaption><span class="caption-star" aria-hidden="true">✦</span><span>Your break-time<br><strong>favorites.</strong></span></figcaption>
         </figure>
       </div>
     </section>
-    <div class="ribbon" aria-hidden="true"><div class="wrap ribbon-content">&nbsp;</div></div>
     <section id="menu" class="section" aria-labelledby="menu-heading">
       <div class="wrap">
         <div class="section-head"><div><span class="eyebrow">A taste of SnackSpot</span><h2 id="menu-heading">Meet our best sellers.</h2><p>Fries, flavored drinks, and munchkins—your break-time favorites.</p></div></div>
@@ -90,25 +92,47 @@
       </div>
     </section>
     <section class="visit section" id="visit" aria-labelledby="visit-heading">
+      <div class="snack-background" aria-hidden="true">
+        <span class="snack-glow snack-glow-one"></span>
+        <span class="snack-glow snack-glow-two"></span>
+        <span class="snack-float snack-float-one">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M22 38 18 14l8-2 5 25m2-1-2-28h8l2 28m3 0 5-25 8 2-5 25m3 0 7-17 7 3-6 17M16 37l8 31h33l8-31z"/><path d="M31 48v10m10-10v10m10-10v10"/></svg>
+        </span>
+        <span class="snack-float snack-float-two">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M66 42a27 27 0 1 1-29-29 12 12 0 0 0 16 13 11 11 0 0 0 13 16Z"/><g fill="currentColor" stroke="none"><circle cx="27" cy="30" r="3"/><circle cx="42" cy="41" r="3.5"/><circle cx="26" cy="49" r="2.5"/><circle cx="46" cy="58" r="3"/><circle cx="53" cy="46" r="2"/></g></svg>
+        </span>
+        <span class="snack-float snack-float-three">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M19 25h43l-6 43H25zM16 25h49M41 25l7-16h12M25 39h31"/><path d="m31 47 7-3 3 7-7 3zm15 6 6-2 2 6-6 2z"/></svg>
+        </span>
+        <span class="snack-float snack-float-four">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M66 42a27 27 0 1 1-29-29 12 12 0 0 0 16 13 11 11 0 0 0 13 16Z"/><g fill="currentColor" stroke="none"><circle cx="27" cy="30" r="3"/><circle cx="42" cy="41" r="3.5"/><circle cx="26" cy="49" r="2.5"/><circle cx="46" cy="58" r="3"/><circle cx="53" cy="46" r="2"/></g></svg>
+        </span>
+        <span class="snack-float snack-float-five">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M22 38 18 14l8-2 5 25m2-1-2-28h8l2 28m3 0 5-25 8 2-5 25m3 0 7-17 7 3-6 17M16 37l8 31h33l8-31z"/><path d="M31 48v10m10-10v10m10-10v10"/></svg>
+        </span>
+        <span class="snack-float snack-float-six">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M19 25h43l-6 43H25zM16 25h49M41 25l7-16h12M25 39h31"/><path d="m31 47 7-3 3 7-7 3zm15 6 6-2 2 6-6 2z"/></svg>
+        </span>
+      </div>
       <div class="wrap visit-grid">
-        <div><span class="eyebrow">Your neighborhood snack stop</span><h2 id="visit-heading">Just outside school.<br>Just what you’re craving.</h2><p class="visit-intro">Drop by for a snack on your way home or during an allowed break. Collect your favorites at the stall and pay when you pick them up.</p><a class="text-link" href="#menu">Take another look at the menu ↗</a></div>
+        <div><span class="eyebrow">Your neighborhood snack stop</span><h2 id="visit-heading">Just outside school.<br>Just what you’re craving.</h2><p class="visit-intro">Drop by for a snack on your way home or during an allowed break. Complete checkout with GCash before collecting your favorites at the stall.</p><a class="text-link" href="#menu">Take another look at the menu ↗</a></div>
         <div class="visit-details">
           <article class="info-row"><span class="info-icon" aria-hidden="true">↗</span><div><h3>Pickup location</h3><p>SnackSpot stall, right outside the school.</p></div></article>
-          <article class="info-row"><span class="info-icon" aria-hidden="true">♡</span><div><h3>Pickup only</h3><p>Collect and pay at the stall.</p><span class="fine">Plan your visit when you are permitted to leave campus.</span></div></article>
+          <article class="info-row"><span class="info-icon" aria-hidden="true">♡</span><div><h3>Pickup only</h3><p>Collect your order at the stall.</p><span class="fine">Plan your visit when you are permitted to leave campus.</span></div></article>
 
         </div>
       </div>
     </section>
 
   </main>
-  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#home">SnackSpot<span class="brand-dot">.</span></a><span>Your day deserves a tasty break.</span><a href="#home">Back to top ↑</a></div><div class="wrap footer-bottom"><span>Pickup only · Pay at the stall  </span><span>Affordable snacks. Happy students.</span></div></footer>
+  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#home">SnackSpot<span class="brand-dot">.</span></a><span>Your day deserves a tasty break.</span><a href="#home">Back to top ↑</a></div><div class="wrap footer-bottom"><span>Pickup only · GCash  </span><span>Affordable snacks. Happy students.</span></div></footer>
  
   <dialog class="product-dialog" id="product-dialog" aria-labelledby="product-title" aria-describedby="product-description">
     <button class="product-close" id="product-close" type="button" aria-label="Close food details">×</button>
     <div class="product-dialog-layout">
       <div class="product-dialog-visual">
         <img id="product-image" alt="">
-        <span>Pay at the stall</span>
+        <span>GCash payment</span>
       </div>
       <div class="product-dialog-content">
         <span class="eyebrow" id="product-category"></span>
@@ -144,9 +168,9 @@
       </div>
       <ul class="cart-items" id="cart-items" aria-label="Snacks in your cart"></ul>
       <div class="cart-total-row"><span>Total <small id="cart-item-count">0 items</small></span><output id="cart-total">₱0</output></div>
-      <p class="cart-note" id="cart-note-storage">This demo saves your cart on this browser. It does not send an order to the stall or take payment.</p>
+      <p class="cart-note" id="cart-note-storage">Your cart is saved in this browser.</p>
       <p id="cart-update" class="cart-update" role="status" aria-live="polite"></p>
-      <button class="button cart-continue" id="cart-continue" type="button">Continue browsing <span aria-hidden="true">→</span></button>
+      <div class="cart-actions"><button class="button button-secondary cart-continue" id="cart-continue" type="button">Keep browsing</button><button class="button cart-checkout" id="cart-checkout" type="button" disabled aria-haspopup="dialog" aria-controls="checkout-dialog">Checkout <span aria-hidden="true">→</span></button></div>
     </div>
   </dialog>
   <aside class="cart-notice" id="cart-notice" aria-label="Cart notification" hidden>
@@ -154,6 +178,64 @@
     <button class="text-link cart-open" type="button" aria-haspopup="dialog" aria-controls="cart-dialog">View cart →</button>
     <button class="notice-dismiss" id="notice-dismiss" type="button" aria-label="Dismiss cart notification">×</button>
   </aside>
+  <dialog class="product-dialog checkout-dialog" id="checkout-dialog" aria-labelledby="checkout-title">
+    <button class="product-close" id="checkout-close" type="button" aria-label="Close checkout">×</button>
+    <div class="checkout-content">
+      <span class="eyebrow">One step closer to snack time</span>
+      <h2 id="checkout-title">Checkout</h2>
+      <div id="checkout-entry">
+        <p class="checkout-intro">Check your snacks and add your pickup details.</p>
+        <form id="checkout-form">
+          <div class="checkout-layout">
+            <section class="checkout-fields" aria-labelledby="checkout-details-heading">
+              <h3 id="checkout-details-heading">Your details</h3>
+              <label for="checkout-name">Name for pickup <span aria-hidden="true">*</span></label>
+              <input id="checkout-name" name="customer_name" type="text" autocomplete="name" maxlength="80" placeholder="Your name" required>
+              <label for="checkout-phone">Mobile number <span aria-hidden="true">*</span></label>
+              <input id="checkout-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="13" pattern="(09[0-9]{9}|[+]639[0-9]{9})" title="Use 09XXXXXXXXX or +639XXXXXXXXX." placeholder="09XXXXXXXXX" aria-describedby="checkout-phone-help checkout-phone-error" required>
+              <p class="checkout-field-hint" id="checkout-phone-help">Use 09XXXXXXXXX or +639XXXXXXXXX.</p>
+              <p class="checkout-field-error" id="checkout-phone-error" role="alert"></p>
+              <label for="checkout-notes">Order notes <span class="checkout-optional">(optional)</span></label>
+              <textarea id="checkout-notes" name="notes" rows="3" maxlength="300" placeholder="Anything we should know?"></textarea>
+              <div class="checkout-pickup"><strong>Pickup at SnackSpot</strong><span>Right outside school · 9 AM – 8 PM</span><span id="checkout-pickup-payment">Payment: GCash</span></div>
+            </section>
+            <section class="checkout-summary" aria-labelledby="checkout-summary-heading">
+              <div class="checkout-summary-heading"><h3 id="checkout-summary-heading">Order summary</h3><span id="checkout-count"></span></div>
+              <ul class="checkout-lines" id="checkout-items" aria-label="Your order"></ul>
+              <div class="checkout-total-row"><span>Total</span><output id="checkout-total">₱0</output></div>
+              <p class="checkout-payment-note" id="checkout-payment-note">GCash · Complete the showcase payment below</p>
+              <div class="checkout-payment-method"><strong>Payment method</strong><span>GCash only</span></div>
+              <div class="gcash-payment" id="gcash-payment" aria-labelledby="gcash-payment-title">
+                <div class="gcash-heading"><span class="gcash-icon" aria-hidden="true">G</span><div><strong id="gcash-payment-title">GCash</strong><span>Payment preview</span></div></div>
+                <div class="gcash-amount-row"><span>Amount to pay</span><output id="gcash-amount">₱0</output></div>
+                <p class="gcash-merchant">Merchant: <strong>SnackSpot</strong></p>
+                <button class="button gcash-simulate" id="gcash-simulate" type="button">Simulate payment <span aria-hidden="true">→</span></button>
+                <p class="gcash-showcase-note">Showcase payment. No money is transferred.</p>
+                <p id="gcash-status" class="gcash-status" role="status" aria-live="polite"></p>
+                <p class="gcash-reference" id="gcash-reference-row" hidden>Showcase reference: <strong id="gcash-reference"></strong></p>
+              </div>
+            </section>
+          </div>
+          <p id="checkout-feedback" class="checkout-feedback" role="status" aria-live="polite"></p>
+          <div class="checkout-actions"><button class="button button-secondary" id="checkout-back" type="button">← Back to cart</button><button class="button" id="checkout-submit" type="submit" disabled>Place order <span aria-hidden="true">→</span></button></div>
+        </form>
+      </div>
+      <section class="checkout-success" id="checkout-success" aria-labelledby="checkout-success-title" hidden>
+        <span class="checkout-success-mark" aria-hidden="true">✓</span>
+        <h3 id="checkout-success-title" tabindex="-1">Order created!</h3>
+        <p class="checkout-intro">Here’s your order summary. The stall has not received an order.</p>
+        <div class="checkout-receipt">
+          <div class="checkout-receipt-heading"><strong id="receipt-number"></strong><span class="checkout-payment-status" id="receipt-payment-status">Awaiting payment</span></div>
+          <p class="receipt-date" id="receipt-date"></p>
+          <dl class="receipt-details"><div><dt>Name</dt><dd id="receipt-name"></dd></div><div id="receipt-phone-row" hidden><dt>Mobile</dt><dd id="receipt-phone"></dd></div><div><dt>Pickup</dt><dd>SnackSpot stall, right outside school</dd></div><div><dt>Payment</dt><dd id="receipt-payment">GCash</dd></div><div id="receipt-payment-reference-row" hidden><dt>Reference</dt><dd id="receipt-payment-reference"></dd></div><div id="receipt-notes-row" hidden><dt>Notes</dt><dd id="receipt-notes"></dd></div></dl>
+          <ul class="checkout-lines" id="receipt-items" aria-label="Order items"></ul>
+          <div class="checkout-total-row"><span>Total</span><output id="receipt-total">₱0</output></div>
+        </div>
+        <button class="button checkout-done" id="checkout-done" type="button">Continue browsing <span aria-hidden="true">→</span></button>
+      </section>
+    </div>
+  </dialog>
+
   <script type="py" src="main.py"></script>
 </body>
 </html>

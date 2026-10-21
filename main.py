@@ -1,4 +1,6 @@
 import json
+import re
+from uuid import uuid4
 
 from pyscript import document, window, when, ffi
 
@@ -404,6 +406,7 @@ if not ffi.is_none(popup):
 cart = []
 cart_storage_key = "snackspot-cart-v1"
 cart_popup = document.getElementById("cart-dialog")
+checkout_popup = document.getElementById("checkout-dialog")
 last_cart_button = None
 cart_press_started_outside = False
 
@@ -555,6 +558,9 @@ def render_cart(focus_key="", focus_action=""):
     document.getElementById("cart-total").value = show_pesos(total_price)
     document.getElementById("cart-empty").hidden = len(cart) > 0
     cart_list.hidden = len(cart) == 0
+    checkout_button = document.getElementById("cart-checkout")
+    if not ffi.is_none(checkout_button):
+        checkout_button.disabled = len(cart) == 0
 
     if focus_key != "":
         if next_focus is None:
@@ -620,6 +626,8 @@ if not ffi.is_none(cart_popup):
 
     @when("close", "#cart-dialog")
     def return_from_cart(event):
+        if not ffi.is_none(checkout_popup) and checkout_popup.open:
+            return
         document.body.classList.remove("product-dialog-open")
         if last_cart_button is not None:
             last_cart_button.focus(ffi.to_js({"preventScroll": True}))
@@ -683,6 +691,290 @@ if not ffi.is_none(cart_popup):
         cart_press_started_outside = False
 
 
+checkout_form = document.getElementById("checkout-form")
+checkout_complete = False
+checkout_press_started_outside = False
+
+
+def fill_checkout_items(list_id):
+    item_list = document.getElementById(list_id)
+    item_list.innerHTML = ""
+    total = 0
+    for item in cart:
+        food = foods[item["food"]]
+        size = food["sizes"][item["size"]]
+        flavor = food["flavors"][item["flavor"]]
+        line_price = size["price"] * item["quantity"]
+        total = total + line_price
+        details = str(item["quantity"]) + " × " + size["label"] + " · " + flavor
+        if item["food"] == "drinks":
+            details = details + " · " + size["detail"]
+        row = document.createElement("li")
+        information = document.createElement("div")
+        information.className = "checkout-line-info"
+        information.appendChild(make_cart_text("strong", food["name"]))
+        information.appendChild(make_cart_text("p", details))
+        row.appendChild(information)
+        row.appendChild(make_cart_text("strong", show_pesos(line_price), "checkout-line-price"))
+        item_list.appendChild(row)
+    return total
+
+
+def validate_checkout_phone():
+    phone_box = document.getElementById("checkout-phone")
+    error_label = document.getElementById("checkout-phone-error")
+    phone = phone_box.value
+    message = ""
+    if phone == "":
+        message = "Enter your mobile number."
+    elif re.fullmatch(r"(09[0-9]{9}|[+]639[0-9]{9})", phone) is None:
+        message = "Enter a valid mobile number: 09XXXXXXXXX or +639XXXXXXXXX."
+    phone_box.setCustomValidity(message)
+    if error_label.textContent != message:
+        error_label.textContent = message
+    if message != "":
+        phone_box.setAttribute("aria-invalid", "true")
+        return False
+    phone_box.removeAttribute("aria-invalid")
+    return True
+
+
+def press_is_outside_checkout(event):
+    edges = checkout_popup.getBoundingClientRect()
+    if event.clientX < edges.left or event.clientX > edges.right:
+        return True
+    if event.clientY < edges.top or event.clientY > edges.bottom:
+        return True
+    return False
+
+
+gcash_confirmed = False
+gcash_cart_signature = ""
+gcash_reference = ""
+
+
+def current_cart_signature():
+    return json.dumps(cart, sort_keys=True)
+
+
+def reset_gcash_payment():
+    global gcash_confirmed, gcash_cart_signature, gcash_reference
+    gcash_confirmed = False
+    gcash_cart_signature = ""
+    gcash_reference = ""
+
+
+def gcash_payment_matches_cart():
+    if not gcash_confirmed:
+        return False
+    return gcash_cart_signature == current_cart_signature()
+
+
+def update_payment_details():
+    is_paid = gcash_payment_matches_cart()
+    total = fill_checkout_items("checkout-items")
+    document.getElementById("checkout-total").value = show_pesos(total)
+    document.getElementById("gcash-amount").value = show_pesos(total)
+    document.getElementById("gcash-payment").hidden = False
+    document.getElementById("checkout-submit").disabled = not is_paid
+    document.getElementById("checkout-pickup-payment").textContent = "Payment: GCash"
+    simulate_button = document.getElementById("gcash-simulate")
+    simulate_button.disabled = is_paid
+    document.getElementById("gcash-reference-row").hidden = not is_paid
+    document.getElementById("gcash-reference").textContent = gcash_reference
+    status = document.getElementById("gcash-status")
+    if is_paid:
+        document.getElementById("checkout-payment-note").textContent = "GCash · Payment simulated"
+        simulate_button.textContent = "Payment simulated ✓"
+        status.textContent = "Payment simulated. You can now place your order."
+    else:
+        document.getElementById("checkout-payment-note").textContent = "GCash · Complete the showcase payment below"
+        simulate_button.textContent = "Simulate payment →"
+        status.textContent = ""
+
+
+if not ffi.is_none(checkout_popup):
+
+    @when("click", "#gcash-simulate")
+    def simulate_gcash_payment(event):
+        global gcash_confirmed, gcash_cart_signature, gcash_reference
+        if len(cart) == 0:
+            return
+        if gcash_payment_matches_cart():
+            return
+        gcash_cart_signature = current_cart_signature()
+        gcash_reference = "GC-" + str(uuid4())[:8].upper()
+        gcash_confirmed = True
+        document.getElementById("checkout-feedback").textContent = ""
+        update_payment_details()
+        document.getElementById("checkout-submit").focus(ffi.to_js({"preventScroll": True}))
+
+
+if not ffi.is_none(checkout_popup):
+
+    @when("click", "#cart-checkout")
+    def open_checkout(event):
+        global checkout_complete
+        if len(cart) == 0:
+            return
+        checkout_complete = False
+        total = fill_checkout_items("checkout-items")
+        quantity = 0
+        for item in cart:
+            quantity = quantity + item["quantity"]
+        count = str(quantity) + " items"
+        if quantity == 1:
+            count = "1 item"
+        document.getElementById("checkout-count").textContent = count
+        document.getElementById("checkout-total").value = show_pesos(total)
+        document.getElementById("checkout-entry").hidden = False
+        document.getElementById("checkout-success").hidden = True
+        document.getElementById("checkout-feedback").textContent = ""
+        document.getElementById("checkout-submit").disabled = False
+        document.getElementById("checkout-title").textContent = "Checkout"
+        if not gcash_payment_matches_cart():
+            reset_gcash_payment()
+        update_payment_details()
+        cart_popup.close()
+        checkout_popup.showModal()
+        checkout_popup.scrollTop = 0
+        document.body.classList.add("product-dialog-open")
+        document.getElementById("checkout-name").focus(ffi.to_js({"preventScroll": True}))
+
+    @when("click", "#checkout-back")
+    def go_back_to_cart(event):
+        checkout_popup.close()
+        cart_popup.showModal()
+        document.body.classList.add("product-dialog-open")
+        document.getElementById("cart-checkout").focus(ffi.to_js({"preventScroll": True}))
+
+    @when("click", "#checkout-close, #checkout-done")
+    def close_checkout(event):
+        checkout_popup.close()
+
+    @when("close", "#checkout-dialog")
+    def return_from_checkout(event):
+        if cart_popup.open:
+            return
+        document.body.classList.remove("product-dialog-open")
+        if last_cart_button is not None:
+            last_cart_button.focus(ffi.to_js({"preventScroll": True}))
+
+    @when("input", "#checkout-name")
+    def clear_name_error(event):
+        event.currentTarget.setCustomValidity("")
+        document.getElementById("checkout-feedback").textContent = ""
+
+    @when("blur", "#checkout-phone")
+    @when("invalid", "#checkout-phone")
+    def show_phone_error(event):
+        validate_checkout_phone()
+
+    @when("input", "#checkout-phone")
+    def update_phone_error(event):
+        error_label = document.getElementById("checkout-phone-error")
+        if error_label.textContent != "":
+            validate_checkout_phone()
+
+    @when("submit", "#checkout-form")
+    def place_order(event):
+        global checkout_complete
+        event.preventDefault()
+        if checkout_complete:
+            return
+        if len(cart) == 0:
+            document.getElementById("checkout-feedback").textContent = "Your cart is empty. Add a snack before checking out."
+            return
+        name_box = document.getElementById("checkout-name")
+        name = name_box.value.strip()
+        name_box.setCustomValidity("")
+        if name == "":
+            name_box.setCustomValidity("Enter a name for pickup.")
+            document.getElementById("checkout-feedback").textContent = "Please enter your name for pickup."
+        validate_checkout_phone()
+        if not checkout_form.checkValidity():
+            checkout_form.reportValidity()
+            return
+        if not gcash_payment_matches_cart():
+            reset_gcash_payment()
+            update_payment_details()
+            document.getElementById("checkout-feedback").textContent = "Complete the GCash showcase payment before placing your order."
+            return
+        phone = document.getElementById("checkout-phone").value.strip()
+        notes = document.getElementById("checkout-notes").value.strip()
+        document.getElementById("checkout-submit").disabled = True
+        total = fill_checkout_items("receipt-items")
+        order_number = "SS-" + str(uuid4())[:8].upper()
+        document.getElementById("receipt-number").textContent = order_number
+        document.getElementById("receipt-date").textContent = window.Date.new().toLocaleString()
+        document.getElementById("receipt-name").textContent = name
+        document.getElementById("receipt-phone").textContent = phone
+        document.getElementById("receipt-phone-row").hidden = False
+        document.getElementById("receipt-notes").textContent = notes
+        document.getElementById("receipt-notes-row").hidden = notes == ""
+        document.getElementById("receipt-total").value = show_pesos(total)
+        payment_status = document.getElementById("receipt-payment-status")
+        document.getElementById("receipt-payment").textContent = "GCash · Showcase payment"
+        payment_status.textContent = "Paid (simulated)"
+        payment_status.classList.add("checkout-gcash-paid")
+        document.getElementById("receipt-payment-reference-row").hidden = False
+        document.getElementById("receipt-payment-reference").textContent = gcash_reference
+        checkout_complete = True
+        cart.clear()
+        save_cart()
+        render_cart()
+        cart_notice = document.getElementById("cart-notice")
+        if not ffi.is_none(cart_notice):
+            cart_notice.hidden = True
+        checkout_form.reset()
+        reset_gcash_payment()
+        document.getElementById("checkout-entry").hidden = True
+        document.getElementById("checkout-success").hidden = False
+        document.getElementById("checkout-title").textContent = "Your order"
+        checkout_popup.scrollTop = 0
+        document.getElementById("checkout-success-title").focus(ffi.to_js({"preventScroll": True}))
+
+    @when("keydown", "#checkout-dialog")
+    def keep_keyboard_inside_checkout(event):
+        if event.key != "Tab":
+            return
+        controls = []
+        for control in checkout_popup.querySelectorAll("button:not([disabled]), input, textarea, a[href]"):
+            if len(control.getClientRects()) > 0:
+                controls.append(control)
+        first_control = controls[0]
+        last_control = controls[len(controls) - 1]
+        active = document.activeElement
+        heading = document.getElementById("checkout-success-title")
+        if active.isSameNode(heading):
+            event.preventDefault()
+            if event.shiftKey:
+                last_control.focus()
+            else:
+                first_control.focus()
+        elif event.shiftKey and active.isSameNode(first_control):
+            event.preventDefault()
+            last_control.focus()
+        elif not event.shiftKey and active.isSameNode(last_control):
+            event.preventDefault()
+            first_control.focus()
+
+    @when("pointerdown", "#checkout-dialog")
+    def remember_checkout_press(event):
+        global checkout_press_started_outside
+        checkout_press_started_outside = False
+        if event.target.isSameNode(checkout_popup):
+            checkout_press_started_outside = press_is_outside_checkout(event)
+
+    @when("click", "#checkout-dialog")
+    def close_checkout_from_background(event):
+        global checkout_press_started_outside
+        if checkout_press_started_outside and event.target.isSameNode(checkout_popup):
+            if press_is_outside_checkout(event):
+                checkout_popup.close()
+        checkout_press_started_outside = False
+
+
 contact_form = document.getElementById("concernForm")
 
 if not ffi.is_none(contact_form):
@@ -700,7 +992,7 @@ if not ffi.is_none(contact_form):
             message_box.focus()
         else:
             response_label.textContent = (
-                "Thank you! This is a demo confirmation; your message has not been sent."
+                "Your message has been checked. It has not been sent."
             )
             contact_form.reset()
 
